@@ -6,7 +6,6 @@ Frontend for the Archix project using **Vite + React + TypeScript** with essenti
 
 - **React 18** + TypeScript
 - **Vite** with HMR
-- **Tanstack Query** (`@tanstack/react-query`) for data fetching
 - **Axios** for API requests
 - **Tailwind CSS** for utility-first styling
 - **classnames** & **tailwind-merge** for conditional styles
