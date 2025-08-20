@@ -9,6 +9,7 @@ import { Dashboard } from 'pages/Dashboard';
 import { DocumentView } from 'pages/DocumentView';
 import { TeamsView } from 'pages/TeamsView';
 import { NotificationsView } from 'pages/NotificationsView';
+import { SettingView } from 'pages/SettingView';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
   {
     path: '/dashboard/notifications',
     element: <NotificationsView />,
+  }
+  ,
+  {
+    path: '/dashboard/settings',
+    element: <SettingView />,
   }
 ]);
 
