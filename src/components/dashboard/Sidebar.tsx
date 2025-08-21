@@ -31,14 +31,15 @@ export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarP
 
   return (
     <aside
-      className={`bg-white border-r border-gray-200 shadow-sm flex flex-col p-3 transition-all duration-300 ease-in-out
-        ${isCollapsed ? "w-16" : "w-60"} rounded-tr-xl rounded-br-xl ${className}`}
+      className={`flex flex-col transition-all duration-300 ease-in-out
+        ${isCollapsed ? "w-16" : "w-64"} 
+        bg-gradient-to-b from-white to-gray-50 border-r border-gray-200 shadow-lg p-3 rounded-tr-xl rounded-br-xl ${className}`}
     >
-      {/* Top section */}
+      {/* Top Section */}
       <div className="flex flex-col items-center mb-6">
         <div className="flex items-center justify-between w-full mb-4">
           {!isCollapsed && (
-            <div className="text-lg font-bold text-gray-800">Archix</div>
+            <div className="text-xl font-extrabold text-gray-800 tracking-wide">Archix</div>
           )}
           <button
             onClick={toggleSidebar}
@@ -46,17 +47,17 @@ export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarP
             aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {isCollapsed ? (
-              <FaBars className="text-dark-gray text-lg" />
+              <FaBars className="text-gray-800 text-lg" />
             ) : (
-              <FaChevronLeft className="text-dark-gray text-lg" />
+              <FaChevronLeft className="text-gray-800 text-lg" />
             )}
           </button>
         </div>
 
-        {/* User profile */}
+        {/* User Profile */}
         {!isCollapsed && (
-          <div className="flex items-center gap-3 w-full p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
-            <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-bold text-lg">
+          <div className="flex items-center gap-3 w-full p-3 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all duration-200 shadow-sm">
+            <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-gray-700 font-bold text-lg">
               JD
             </div>
             <div className="flex flex-col">
@@ -68,7 +69,7 @@ export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarP
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 flex flex-col space-y-1 overflow-y-auto">
+      <nav className="flex-1 flex flex-col space-y-2 overflow-y-auto">
         {navItems.map((item) => {
           const isActive = location.pathname === item.href;
           return (
@@ -76,18 +77,18 @@ export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarP
               key={item.name}
               to={item.href}
               onClick={() => setActiveItem(item.name)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium transition-all duration-200
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200
                 ${isCollapsed ? "justify-center" : "justify-start"}
                 ${isActive
-                  ? "bg-gray-100 text-gray-900 shadow-inner"
-                  : "text-gray-700 hover:bg-gray-50 hover:shadow-sm"}`}
+                  ? "bg-red-50 text-red-600 shadow-inner"
+                  : "text-gray-700 hover:bg-red-50 hover:text-red-600 hover:shadow-sm"}`}
               title={isCollapsed ? item.name : ""}
               aria-current={isActive ? "page" : undefined}
             >
-              <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center relative text-base">
+              <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center text-lg relative">
                 {item.icon}
                 {item.badge && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center shadow">
                     {item.badge}
                   </span>
                 )}
@@ -101,17 +102,18 @@ export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarP
       </nav>
 
       {/* Logout */}
-      <div className="mt-auto pt-3 border-t border-gray-200">
-        <Link
-          to="/logout"
-          className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 hover:shadow-sm transition-colors font-medium
-            ${isCollapsed ? "justify-center" : "justify-start"}`}
-          title={isCollapsed ? "Logout" : ""}
-        >
-          <FaSignOutAlt className="text-base" />
-          {!isCollapsed && <span className="text-sm">Logout</span>}
-        </Link>
-      </div>
+<div className="mt-auto pt-4 border-t border-gray-200">
+  <Link
+    to="/logout"
+    className={`flex items-center justify-center ${!isCollapsed ? "justify-start px-4" : "px-0"} py-4 rounded-xl text-gray-700 hover:bg-red-50 hover:text-red-600 hover:shadow-sm transition-all font-medium`}
+    title={isCollapsed ? "Logout" : ""}
+  >
+    <FaSignOutAlt className={`${isCollapsed ? "text-1xl" : "text-base"}`} />
+    {!isCollapsed && <span className="text-sm ml-3">Logout</span>}
+  </Link>
+</div>
+
+
     </aside>
   );
 };
