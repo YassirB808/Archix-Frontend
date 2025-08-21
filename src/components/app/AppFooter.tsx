@@ -9,12 +9,22 @@ interface AppFooterProps {
 export const AppFooter = ({ className = '' }: AppFooterProps) => {
   const currentYear = new Date().getFullYear();
 
-  const quickLinks = ["Features", "Pricing", "Case Studies", "Blog"];
-  const legalLinks = ["Privacy Policy", "Terms of Service", "Cookie Policy", "GDPR"];
+  // Quick links now have labels and refs
+  const quickLinks = [
+    { label: "About Us", ref: "/about" },
+    { label: "Pricing", ref: "/pricing" },
+  ];
+
+  const legalLinks = [
+    { label: "Privacy Policy", ref: "/privacy" },
+    { label: "Terms of Service", ref: "/tos" },
+    { label: "Cookie Policy", ref: "/cookie" },
+  ];
+
   const socialLinks = [
-    { icon: <FaLinkedin className="h-5 w-5" />, url: "https://www.linkedin.com/company/archix", label: "LinkedIn" },
-    { icon: <FaTwitter className="h-5 w-5" />, url: "https://twitter.com/archix", label: "Twitter" },
-    { icon: <FaGithub className="h-5 w-5" />, url: "https://github.com/archix", label: "GitHub" },
+    { icon: <FaLinkedin className="h-5 w-5" />, url: "https://www.linkedin.com/", label: "LinkedIn" },
+    { icon: <FaTwitter className="h-5 w-5" />, url: "https://twitter.com/", label: "Twitter" },
+    { icon: <FaGithub className="h-5 w-5" />, url: "https://github.com/", label: "GitHub" },
   ];
 
   return (
@@ -40,9 +50,9 @@ export const AppFooter = ({ className = '' }: AppFooterProps) => {
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Quick Links</h3>
             <ul className="space-y-2">
               {quickLinks.map(link => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-red-500 transition-colors text-sm">
-                    {link}
+                <li key={link.label}>
+                  <a href={link.ref} className="text-gray-400 hover:text-red-500 transition-colors text-sm">
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -54,9 +64,9 @@ export const AppFooter = ({ className = '' }: AppFooterProps) => {
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Legal</h3>
             <ul className="space-y-2">
               {legalLinks.map(link => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-red-500 transition-colors text-sm">
-                    {link}
+                <li key={link.label}>
+                  <a href={link.ref} className="text-gray-400 hover:text-red-500 transition-colors text-sm">
+                    {link.label}
                   </a>
                 </li>
               ))}

@@ -10,6 +10,10 @@ import { DocumentView } from 'pages/DocumentView';
 import { TeamsView } from 'pages/TeamsView';
 import { NotificationsView } from 'pages/NotificationsView';
 import { SettingView } from 'pages/SettingView';
+import { AboutUs } from 'pages/About'; 
+import { PrivacyPolicy } from 'pages/Privacy';
+import { TermsOfService } from 'pages/TermsOfService';
+import { CookiePolicy } from 'pages/CookiePolicy';
 
 const router = createBrowserRouter([
   {
@@ -54,6 +58,26 @@ const router = createBrowserRouter([
   {
     path: '/dashboard/settings',
     element: <SettingView />,
+  }
+  ,
+  { 
+    path: '/about',
+    element: <AboutUs />,
+  }
+  ,
+  { 
+    path: '/privacy',
+    element: <PrivacyPolicy />,
+  }
+  ,
+  { 
+    path: '/tos',
+    element: <TermsOfService />,
+  }
+  ,
+  { 
+    path: '/cookie',
+    element: <CookiePolicy />,
   }
 ]);
 

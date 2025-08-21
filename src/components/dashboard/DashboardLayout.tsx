@@ -1,4 +1,3 @@
-// components/dashboard/DashboardLayout.tsx
 import { ReactNode, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { AppHeader } from "../app/AppHeader";
@@ -15,20 +14,22 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
-      {/* App Header */}
-      <AppHeader />
+      {/* App Header (sticky) */}
+      <div className="sticky top-0 z-50">
+        <AppHeader />
+      </div>
 
-      <div className="flex flex-1 overflow-hidden mt-1">
-        {/* Sidebar */}
+      <div className="flex flex-1 mt-0">
+        {/* Sidebar (sticky below header) */}
         <Sidebar
           isCollapsed={isSidebarCollapsed}
           toggleSidebar={toggleSidebar}
-          className="sticky top-0 h-screen flex-shrink-0"
+          className="sticky top-16 self-start h-[calc(100vh-64px)] overflow-y-auto" 
         />
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col overflow-hidden transition-all duration-300">
-          <main className="flex-1 min-h-[calc(100vh-128px)] overflow-y-auto p-6">
+        <div className="flex-1 flex flex-col transition-all duration-300">
+          <main className="flex-1 overflow-y-auto p-6">
             {children}
           </main>
         </div>

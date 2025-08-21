@@ -17,7 +17,7 @@ interface SidebarProps {
   className?: string;
 }
 
-export const Sidebar = ({ isCollapsed, toggleSidebar }: SidebarProps) => {
+export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarProps) => {
   const location = useLocation();
   const [activeItem, setActiveItem] = useState("");
 
@@ -32,7 +32,7 @@ export const Sidebar = ({ isCollapsed, toggleSidebar }: SidebarProps) => {
   return (
     <aside
       className={`bg-white border-r border-gray-200 shadow-sm flex flex-col p-3 transition-all duration-300 ease-in-out
-        ${isCollapsed ? "w-16" : "w-60"} rounded-tr-xl rounded-br-xl`}
+        ${isCollapsed ? "w-16" : "w-60"} rounded-tr-xl rounded-br-xl ${className}`}
     >
       {/* Top section */}
       <div className="flex flex-col items-center mb-6">

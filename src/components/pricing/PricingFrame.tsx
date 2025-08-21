@@ -6,7 +6,6 @@ import {
   FaCheck,
   FaTimes,
   FaQuestionCircle,
-  FaArrowRight,
   FaCcMastercard,
   FaCcVisa,
   FaCcAmex,
@@ -106,7 +105,6 @@ export const PricingFrame = () => {
             { name: 'Priority support', included: true }
           ]
         },
-        cta: 'Start Free Trial'
       },
       {
         name: 'Professional',
@@ -429,22 +427,6 @@ export const PricingFrame = () => {
         <p className="text-gray-400 text-sm mt-4">
           All prices in USD. VAT may apply depending on your location.
         </p>
-      </div>
-
-      {/* Final CTA */}
-      <div className="text-center bg-gray-50 rounded-2xl p-16 shadow-inner">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-6">Ready to get started?</h2>
-        <p className="text-lg md:text-xl text-gray-700 mb-10 max-w-2xl mx-auto">
-          Join thousands of satisfied users who trust our platform for their documentation needs.
-        </p>
-        <div className="flex flex-col md:flex-row justify-center gap-6">
-          <button className="px-8 py-4 bg-gradient-to-r from-corporate-red to-red-600 text-white rounded-xl font-semibold hover:brightness-110 transition-all shadow-lg flex items-center justify-center gap-2">
-            Get Started <FaArrowRight />
-          </button>
-          <button className="px-8 py-4 border border-gray-300 text-gray-900 rounded-xl font-semibold hover:bg-gray-100 transition-all flex items-center justify-center gap-2">
-            Contact Sales
-          </button>
-        </div>
       </div>
     </div>
   );
