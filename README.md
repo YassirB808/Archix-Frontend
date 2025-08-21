@@ -83,7 +83,3 @@ git checkout main
 git pull origin main
 ```
 
-This is fully raw markdown — ready to save as `README.md`.  
-
-If you want, I can also **add badges and links** (like license, GitHub actions, and issues) to make it look like a professional GitHub README. Do you want me to do that?
-```
