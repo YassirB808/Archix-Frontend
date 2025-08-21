@@ -1,6 +1,4 @@
-Got it! Here’s the **full README** in raw markdown format that you can copy-paste directly into your `README.md`:
 
-````markdown
 # Archix Project
 
 Archix is a collaborative document management web application designed to streamline team workflows, improve document organization, and enhance productivity.
@@ -83,8 +81,6 @@ git push origin feature/your-feature-name
 ```bash
 git checkout main
 git pull origin main
-```
-
 ```
 
 This is fully raw markdown — ready to save as `README.md`.  
