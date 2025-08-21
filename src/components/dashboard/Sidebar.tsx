@@ -25,7 +25,7 @@ export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarP
     { name: "Dashboard", icon: <FaHome />, href: "/dashboard" },
     { name: "Documents", icon: <FaFileAlt />, href: "/dashboard/documents" },
     { name: "Teams", icon: <FaUsers />, href: "/dashboard/teams" },
-    { name: "Notifications", icon: <FaBell />, href: "/dashboard/notifications", badge: 3 },
+    { name: "Notifications", icon: <FaBell />, href: "/dashboard/notifications", badge: 2 },
     { name: "Settings", icon: <FaCog />, href: "/dashboard/settings" },
   ];
 

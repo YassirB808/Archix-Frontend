@@ -1,27 +1,61 @@
 // src/components/app/AppHeader.tsx
 import { useState, useRef, useEffect } from 'react';
 import { BellIcon, ChartBarIcon, UserGroupIcon, FolderIcon, SparklesIcon } from '@heroicons/react/24/outline';
-import { FaSignInAlt, FaUserPlus, FaCrown, FaSearch } from 'react-icons/fa';
+import { FaSignInAlt, FaUserPlus, FaCrown, FaSearch, FaCheck, FaTrash, FaEnvelope, FaExclamationTriangle, FaInfoCircle, FaCheckCircle, FaCog } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface AppHeaderProps { className?: string; }
-interface Notification { id: number; message: string; time: string; }
+interface Notification { 
+  id: number; 
+  title: string;
+  description: string; 
+  time: string; 
+  read: boolean;
+  type: string;
+  icon: JSX.Element;
+}
 
 const headerIcons = [
   { href: '/dashboard', icon: ChartBarIcon, label: 'Dashboard', color: 'text-green-600 hover:text-green-700' },
-  { href: '/teams', icon: UserGroupIcon, label: 'Teams' },
-  { href: '/documents', icon: FolderIcon, label: 'Documents' },
+  { href: '/dashboard/teams', icon: UserGroupIcon, label: 'Teams' },
+  { href: '/dashboard/documents', icon: FolderIcon, label: 'Documents' },
   { href: '#', icon: BellIcon, label: 'Notifications', badge: true },
 ];
 
 const sampleNotifications: Notification[] = [
-  { id: 1, message: 'New comment on your document', time: '2m ago' },
-  { id: 2, message: 'Team member joined your project', time: '10m ago' },
+  {
+    id: 1,
+    title: "New message from Alex",
+    description: "Hey, could you review the latest design files?",
+    time: "10 min ago",
+    read: false,
+    type: "message",
+    icon: <FaEnvelope className="text-blue-500" />
+  },
+  {
+    id: 2,
+    title: "Server downtime warning",
+    description: "Scheduled maintenance tomorrow at 2:00 AM",
+    time: "30 min ago",
+    read: false,
+    type: "alert",
+    icon: <FaExclamationTriangle className="text-amber-500" />
+  },
+  {
+    id: 3,
+    title: "Project update completed",
+    description: "Your team has completed the weekly milestones",
+    time: "2 hours ago",
+    read: true,
+    type: "success",
+    icon: <FaCheckCircle className="text-green-500" />
+  }
 ];
 
 export const AppHeader = ({ className = '' }: AppHeaderProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notifications, setNotifications] = useState(sampleNotifications);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
   const notificationsRef = useRef<HTMLLIElement>(null);
@@ -48,13 +82,29 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
 
   const handleSearchClick = () => searchInputRef.current?.focus();
 
+  const markAsRead = (id: number) => {
+    setNotifications(notifications.map(notification => 
+      notification.id === id ? { ...notification, read: true } : notification
+    ));
+  };
+
+  const deleteNotification = (id: number) => {
+    setNotifications(notifications.filter(notification => notification.id !== id));
+  };
+
+  const markAllAsRead = () => {
+    setNotifications(notifications.map(notification => ({ ...notification, read: true })));
+  };
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
   return (
     <header className={`bg-white shadow sticky top-0 z-50 ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2">
+          <a href="/home" className="flex items-center gap-2">
             <img src="/logos/archixCopy.png" alt="Archix Docs Logo" className="h-10 w-auto" />
             <span className="text-2xl font-bold text-gray-900">Archix Docs</span>
           </a>
@@ -89,12 +139,16 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                     <li key={idx} className="relative" ref={notificationsRef}>
                       <button 
                         onClick={() => setNotificationsOpen(!notificationsOpen)}
-                        className="p-2 rounded-full flex items-center justify-center hover:bg-gray-100 transition-transform transform hover:scale-105"
+                        className="p-2 rounded-full flex items-center justify-center hover:bg-gray-100 transition-transform transform hover:scale-105 relative"
                         aria-label={item.label}
                         aria-expanded={notificationsOpen}
                       >
                         <Icon className={`h-5 w-5 text-gray-600 ${item.color || ''}`} />
-                        {item.badge && <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500 animate-pulseScale" aria-hidden="true" />}
+                        {unreadCount > 0 && (
+                          <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-white text-xs flex items-center justify-center ">
+                            {unreadCount}
+                          </span>
+                        )}
                       </button>
 
                       <AnimatePresence>
@@ -104,35 +158,101 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: -10, scale: 0.95 }}
                             transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-                            className="absolute right-0 mt-2 w-72 bg-white border border-gray-200 rounded-xl shadow-xl py-2 z-50"
+                            className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-xl shadow-xl z-50"
                             role="menu"
                           >
-                            <div className="px-4 py-2 flex justify-between items-center border-b border-gray-100">
-                              <h3 className="text-sm font-semibold text-gray-700">Notifications</h3>
-                              <button className="text-xs text-red-600 hover:text-red-700" onClick={() => setNotificationsOpen(false)}>Mark all as read</button>
-                            </div>
-                            <div className="max-h-64 overflow-y-auto">
-                              {sampleNotifications.map(n => (
-                                <motion.div 
-                                  key={n.id}
-                                  initial={{ opacity: 0, x: -10 }}
-                                  animate={{ opacity: 1, x: 0 }}
-                                  transition={{ delay: 0.1 }}
-                                  className="px-4 py-3 hover:bg-red-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0 rounded-md"
-                                  role="menuitem"
+                            {/* Header */}
+                            <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100 bg-white rounded-t-xl">
+                              <div className="flex items-center gap-2">
+                                <div className="p-1.5 bg-blue-100 rounded-lg">
+                                  <BellIcon className="h-4 w-4 text-blue-600" />
+                                </div>
+                                <h3 className="text-sm font-semibold text-gray-900">Notifications</h3>
+                                {unreadCount > 0 && (
+                                  <span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full">
+                                    {unreadCount} unread
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex gap-1">
+                                <button 
+                                  onClick={markAllAsRead}
+                                  className="p-1.5 text-gray-500 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+                                  title="Mark all as read"
                                 >
-                                  <p className="text-sm text-gray-700">{n.message}</p>
-                                  <div className="flex justify-between items-center mt-1">
-                                    <span className="text-xs text-gray-400">{n.time}</span>
-                                    <button className="text-xs text-gray-400 hover:text-red-600" aria-label={`Dismiss ${n.message} notification`}>×</button>
+                                  <FaCheck className="text-xs" />
+                                </button>
+                                <button 
+                                  onClick={() => setNotifications([])}
+                                  className="p-1.5 text-gray-500 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                                  title="Clear all"
+                                >
+                                  <FaTrash className="text-xs" />
+                                </button>
+                              </div>
+                            </div>
+
+                            {/* Notifications List */}
+                            <div className="max-h-96 overflow-y-auto">
+                              {notifications.length > 0 ? (
+                                <div className="p-2">
+                                  {notifications.map(notification => (
+                                    <motion.div 
+                                      key={notification.id}
+                                      initial={{ opacity: 0, x: -10 }}
+                                      animate={{ opacity: 1, x: 0 }}
+                                      transition={{ delay: 0.1 }}
+                                      className={`p-3 rounded-xl mb-2 transition-all ${notification.read ? 'bg-gray-50 border border-gray-100' : 'bg-blue-50 border border-blue-100'}`}
+                                      role="menuitem"
+                                    >
+                                      <div className="flex gap-3">
+                                        <div className="mt-0.5">
+                                          {notification.icon}
+                                        </div>
+                                        <div className="flex-grow">
+                                          <div className="flex justify-between items-start">
+                                            <h4 className={`text-sm font-semibold ${notification.read ? 'text-gray-700' : 'text-gray-900'}`}>
+                                              {notification.title}
+                                            </h4>
+                                            <span className="text-xs text-gray-500 whitespace-nowrap">{notification.time}</span>
+                                          </div>
+                                          <p className="text-gray-600 text-xs mt-1">{notification.description}</p>
+                                        </div>
+                                      </div>
+                                      {!notification.read && (
+                                        <div className="flex justify-end gap-2 mt-2 pt-2 border-t border-gray-100">
+                                          <button 
+                                            onClick={() => markAsRead(notification.id)}
+                                            className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white text-gray-600 border border-gray-200 text-xs font-medium hover:bg-gray-50"
+                                          >
+                                            <FaCheck className="text-xs" />
+                                            Mark read
+                                          </button>
+                                        </div>
+                                      )}
+                                    </motion.div>
+                                  ))}
+                                </div>
+                              ) : (
+                                <div className="flex flex-col items-center justify-center py-8 px-4 text-center">
+                                  <div className="p-2 bg-gray-100 rounded-full mb-3">
+                                    <BellIcon className="h-5 w-5 text-gray-400" />
                                   </div>
-                                </motion.div>
-                              ))}
-                              {sampleNotifications.length === 0 && <div className="px-4 py-4 text-center text-gray-400 text-sm">No new notifications</div>}
+                                  <h4 className="text-sm font-medium text-gray-700">No notifications</h4>
+                                  <p className="text-gray-500 text-xs mt-1">You're all caught up!</p>
+                                </div>
+                              )}
                             </div>
-                            <div className="px-4 py-2 border-t border-gray-100">
-                              <a href="/notifications" className="text-xs text-red-600 hover:text-red-700 font-medium">View all notifications</a>
+                            {/* Footer */}
+                            <div className="px-4 py-2 border-t border-gray-100 bg-white rounded-b-xl">
+                              <a
+                                href="/dashboard/notifications"
+                                className="w-full block text-center text-sm text-gray-600 hover:text-red-600 transition-colors"
+                              >
+                                View all
+                              </a>
                             </div>
+
                           </motion.div>
                         )}
                       </AnimatePresence>

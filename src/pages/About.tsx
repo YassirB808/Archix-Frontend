@@ -141,7 +141,7 @@ export const AboutUs = () => {
                 },
               ].map((item, index) => (
                 <div 
-                  key={item.title} 
+                  key={item.title}  
                   className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 transition-all duration-300 hover:shadow-lg hover:border-red-200 group"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
