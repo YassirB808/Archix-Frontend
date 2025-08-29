@@ -1,7 +1,7 @@
 // src/components/app/AppHeader.tsx
 import { useState, useRef, useEffect } from 'react';
 import { BellIcon, ChartBarIcon, UserGroupIcon, FolderIcon, SparklesIcon } from '@heroicons/react/24/outline';
-import { FaSignInAlt, FaUserPlus, FaCrown, FaSearch, FaCheck, FaTrash, FaEnvelope, FaExclamationTriangle, FaInfoCircle, FaCheckCircle, FaCog } from 'react-icons/fa';
+import { FaSignInAlt, FaUserPlus, FaCrown, FaSearch, FaCheck, FaTrash, FaEnvelope, FaExclamationTriangle, FaCheckCircle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface AppHeaderProps { className?: string; }
@@ -126,7 +126,7 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                 type="text" 
                 placeholder="Search..."
                 ref={searchInputRef}
-                className="pl-9 pr-3 py-1.5 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm w-48 transition-all"
+                className="pl-9 pr-3 py-1.5 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-corporate-red focus:border-corporate-red text-sm w-48 transition-all"
               />
             </div>
 
@@ -145,7 +145,7 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                       >
                         <Icon className={`h-5 w-5 text-gray-600 ${item.color || ''}`} />
                         {unreadCount > 0 && (
-                          <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-red-500 text-white text-xs flex items-center justify-center ">
+                          <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-corporate-red text-white text-xs flex items-center justify-center">
                             {unreadCount}
                           </span>
                         )}
@@ -164,12 +164,12 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                             {/* Header */}
                             <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100 bg-white rounded-t-xl">
                               <div className="flex items-center gap-2">
-                                <div className="p-1.5 bg-blue-100 rounded-lg">
-                                  <BellIcon className="h-4 w-4 text-blue-600" />
+                                <div className="p-1.5 bg-red-100 rounded-lg">
+                                  <BellIcon className="h-4 w-4 text-corporate-red" />
                                 </div>
                                 <h3 className="text-sm font-semibold text-gray-900">Notifications</h3>
                                 {unreadCount > 0 && (
-                                  <span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full">
+                                  <span className="bg-red-100 text-corporate-red text-xs px-2 py-0.5 rounded-full">
                                     {unreadCount} unread
                                   </span>
                                 )}
@@ -177,14 +177,14 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                               <div className="flex gap-1">
                                 <button 
                                   onClick={markAllAsRead}
-                                  className="p-1.5 text-gray-500 hover:text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+                                  className="p-1.5 text-gray-500 hover:text-corporate-red rounded-lg hover:bg-red-50 transition-colors"
                                   title="Mark all as read"
                                 >
                                   <FaCheck className="text-xs" />
                                 </button>
                                 <button 
                                   onClick={() => setNotifications([])}
-                                  className="p-1.5 text-gray-500 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+                                  className="p-1.5 text-gray-500 hover:text-corporate-red rounded-lg hover:bg-red-50 transition-colors"
                                   title="Clear all"
                                 >
                                   <FaTrash className="text-xs" />
@@ -202,7 +202,7 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                                       initial={{ opacity: 0, x: -10 }}
                                       animate={{ opacity: 1, x: 0 }}
                                       transition={{ delay: 0.1 }}
-                                      className={`p-3 rounded-xl mb-2 transition-all ${notification.read ? 'bg-gray-50 border border-gray-100' : 'bg-blue-50 border border-blue-100'}`}
+                                      className={`p-3 rounded-xl mb-2 transition-all ${notification.read ? 'bg-gray-50 border border-gray-100' : 'bg-red-50 border border-red-100'}`}
                                       role="menuitem"
                                     >
                                       <div className="flex gap-3">
@@ -223,7 +223,7 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                                         <div className="flex justify-end gap-2 mt-2 pt-2 border-t border-gray-100">
                                           <button 
                                             onClick={() => markAsRead(notification.id)}
-                                            className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white text-gray-600 border border-gray-200 text-xs font-medium hover:bg-gray-50"
+                                            className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white text-gray-600 border border-gray-200 text-xs font-medium hover:bg-red-50 hover:text-corporate-red"
                                           >
                                             <FaCheck className="text-xs" />
                                             Mark read
@@ -247,7 +247,7 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                             <div className="px-4 py-2 border-t border-gray-100 bg-white rounded-b-xl">
                               <a
                                 href="/dashboard/notifications"
-                                className="w-full block text-center text-sm text-gray-600 hover:text-red-600 transition-colors"
+                                className="w-full block text-center text-sm text-gray-600 hover:text-corporate-red transition-colors"
                               >
                                 View all
                               </a>
@@ -283,10 +283,10 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
 
             {/* Auth buttons */}
             <div className="flex items-center space-x-2">
-              <a href="/login" className="p-2 rounded-full border border-gray-300 hover:border-gray-400 text-gray-700 hover:text-red-600 flex items-center justify-center transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-500">
+              <a href="/login" className="p-2 rounded-full border border-gray-300 hover:border-gray-400 text-gray-700 hover:text-corporate-red flex items-center justify-center transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-corporate-red">
                 <FaSignInAlt className="h-4 w-4" />
               </a>
-              <a href="/register" className="p-2 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-red-500">
+              <a href="/register" className="p-2 rounded-full bg-corporate-red hover:bg-red-700 text-white flex items-center justify-center transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-corporate-red">
                 <FaUserPlus className="h-4 w-4" />
               </a>
             </div>
@@ -294,7 +294,7 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
             {/* Profile dropdown */}
             <div className="relative" ref={profileRef}>
               <button onClick={() => setDropdownOpen(!dropdownOpen)} className="rounded-full flex items-center justify-center w-9 h-9 focus:outline-none transition-transform transform hover:scale-105" aria-label="User menu" aria-expanded={dropdownOpen}>
-                <img src="/logos/archixCopy.png" alt="User profile" className={`rounded-full object-cover w-full h-full border-2 border-red-500 transition-all duration-150 ${dropdownOpen ? 'ring-2 ring-red-500' : ''}`} />
+                <img src="/logos/archixCopy.png" alt="User profile" className={`rounded-full object-cover w-full h-full border-2 border-corporate-red transition-all duration-150 ${dropdownOpen ? 'ring-2 ring-corporate-red' : ''}`} />
               </button>
 
               <AnimatePresence>
@@ -311,11 +311,11 @@ export const AppHeader = ({ className = '' }: AppHeaderProps) => {
                       <p className="text-sm font-medium text-gray-900">Yassir Bouita</p>
                       <p className="text-xs text-gray-500 truncate">yassir@example.com</p>
                     </div>
-                    <a href="/profile" className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600 text-sm font-medium transition-colors">Your Profile</a>
-                    <a href="/subscription" className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600 text-sm font-medium transition-colors">Manage Subscription</a>
-                    <a href="/account-settings" className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-red-600 text-sm font-medium transition-colors">Account Settings</a>
+                    <a href="/profile" className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-corporate-red text-sm font-medium transition-colors">Your Profile</a>
+                    <a href="/subscription" className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-corporate-red text-sm font-medium transition-colors">Manage Subscription</a>
+                    <a href="/account-settings" className="block px-4 py-2 text-gray-700 hover:bg-red-50 hover:text-corporate-red text-sm font-medium transition-colors">Account Settings</a>
                     <div className="px-4 py-2 border-t border-gray-100">
-                      <a href="/logout" className="block w-full text-left text-gray-700 hover:bg-red-50 hover:text-red-600 text-sm font-medium transition-colors">Sign out</a>
+                      <a href="/logout" className="block w-full text-left text-gray-700 hover:bg-red-50 hover:text-corporate-red text-sm font-medium transition-colors">Sign out</a>
                     </div>
                   </motion.div>
                 )}

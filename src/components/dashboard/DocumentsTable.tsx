@@ -1,6 +1,9 @@
 import { FaFileWord, FaFileExcel, FaFilePowerpoint, FaFilePdf, FaDownload, FaShare, FaEllipsisV } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export const DocumentsTable = () => {
+  const navigate = useNavigate();
+
   const documents = [
     { 
       name: "Project Plan.docx", 
@@ -41,7 +44,7 @@ export const DocumentsTable = () => {
       case "doc": return <FaFileWord className="text-blue-600 text-lg" />;
       case "xls": return <FaFileExcel className="text-green-600 text-lg" />;
       case "ppt": return <FaFilePowerpoint className="text-orange-600 text-lg" />;
-      case "pdf": return <FaFilePdf className="text-red-600 text-lg" />;
+      case "pdf": return <FaFilePdf className="text-corporate-red text-lg" />;
       default: return <FaFileWord className="text-gray-600 text-lg" />;
     }
   };
@@ -49,9 +52,9 @@ export const DocumentsTable = () => {
   const getStatusBadge = (status: string) => {
     const statusStyles = {
       Approved: "bg-green-100 text-green-800",
-      Pending: "bg-yellow-100 text-yellow-800",
+      Pending: "bg-amber-100 text-amber-800",
       Reviewed: "bg-blue-100 text-blue-800",
-      Rejected: "bg-red-100 text-red-800"
+      Rejected: "bg-red-100 text-corporate-red"
     };
     
     return (
@@ -65,7 +68,10 @@ export const DocumentsTable = () => {
     <div className="bg-white rounded-xl p-5">
       <div className="flex items-center justify-between mb-5">
         <h3 className="font-semibold text-gray-800 text-lg">Recent Documents</h3>
-        <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">
+        <button
+          onClick={() => navigate("./documents")}
+          className="text-sm text-corporate-red hover:text-red-700 font-medium"
+        >
           View all →
         </button>
       </div>
@@ -96,7 +102,9 @@ export const DocumentsTable = () => {
                   </div>
                 </td>
                 <td className="py-3 px-4">
-                  <span className="text-sm text-gray-700 bg-gray-100 px-2 py-1 rounded-md">{doc.team}</span>
+                  <span className="text-sm text-gray-700 bg-red-100 text-corporate-red px-2 py-1 rounded-md">
+                    {doc.team}
+                  </span>
                 </td>
                 <td className="py-3 px-4 text-sm text-gray-600">{doc.size}</td>
                 <td className="py-3 px-4">
@@ -105,7 +113,7 @@ export const DocumentsTable = () => {
                 <td className="py-3 px-4 text-sm text-gray-500">{doc.uploaded}</td>
                 <td className="py-3 px-4">
                   <div className="flex items-center gap-2">
-                    <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors">
+                    <button className="p-1.5 text-gray-400 hover:text-corporate-red hover:bg-red-50 rounded-md transition-colors">
                       <FaDownload className="text-sm" />
                     </button>
                     <button className="p-1.5 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-md transition-colors">

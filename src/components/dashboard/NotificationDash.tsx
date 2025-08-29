@@ -1,8 +1,6 @@
-// src/components/dashboard/NotificationDash.tsx
 import { useState } from "react";
 import { 
   FaBell, 
-  FaFilter, 
   FaCheck, 
   FaTrash, 
   FaEnvelope, 
@@ -109,8 +107,8 @@ export const NotificationDash = () => {
       {/* Header */}
       <div className="flex items-center justify-between pb-6 border-b border-gray-100">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-100 rounded-lg">
-            <FaBell className="text-blue-600 text-xl" />
+          <div className="p-2 bg-red-100 rounded-lg">
+            <FaBell className="text-corporate-red text-xl" />
           </div>
           <div>
             <h2 className="text-2xl font-bold text-gray-900">Notifications</h2>
@@ -120,14 +118,14 @@ export const NotificationDash = () => {
         <div className="flex gap-2">
           <button 
             onClick={markAllAsRead}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 bg-white text-gray-700 font-medium hover:bg-gray-50 transition-colors text-sm"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 bg-white text-gray-700 font-medium hover:bg-red-50 hover:text-corporate-red transition-colors text-sm"
           >
             <FaCheck className="text-sm" />
             Mark all as read
           </button>
           <button 
             onClick={clearAll}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 bg-white text-gray-700 font-medium hover:bg-gray-50 transition-colors text-sm"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 bg-white text-gray-700 font-medium hover:bg-red-50 hover:text-corporate-red transition-colors text-sm"
           >
             <FaTrash className="text-sm" />
             Clear all
@@ -141,7 +139,7 @@ export const NotificationDash = () => {
           <button
             key={filter.id}
             onClick={() => setActiveFilter(filter.id)}
-            className={`px-4 py-2 rounded-xl font-medium text-sm whitespace-nowrap transition-colors ${activeFilter === filter.id ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+            className={`px-4 py-2 rounded-xl font-medium text-sm whitespace-nowrap transition-colors ${activeFilter === filter.id ? 'bg-red-100 text-corporate-red' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
           >
             {filter.label}
           </button>
@@ -155,7 +153,7 @@ export const NotificationDash = () => {
             {filteredNotifications.map(notification => (
               <div 
                 key={notification.id} 
-                className={`p-4 rounded-xl border transition-all ${notification.read ? 'border-gray-100 bg-gray-50' : 'border-blue-100 bg-blue-50'}`}
+                className={`p-4 rounded-xl border transition-all ${notification.read ? 'border-gray-100 bg-gray-50' : 'border-red-100 bg-red-50'}`}
               >
                 <div className="flex gap-3">
                   <div className="mt-1">
@@ -175,7 +173,7 @@ export const NotificationDash = () => {
                   <div className="flex justify-end gap-2 mt-3 pt-3 border-t border-gray-100">
                     <button 
                       onClick={() => markAsRead(notification.id)}
-                      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-white text-gray-600 border border-gray-200 text-xs font-medium hover:bg-gray-50"
+                      className="flex items-center gap-1 px-3 py-1 rounded-lg bg-white text-gray-600 border border-gray-200 text-xs font-medium hover:bg-red-50 hover:text-corporate-red"
                     >
                       <FaCheck className="text-xs" />
                       Mark as read
@@ -202,7 +200,7 @@ export const NotificationDash = () => {
 
       {/* Footer */}
       <div className="pt-6 mt-4 border-t border-gray-100">
-        <button className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-colors">
+        <button className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-gray-200 text-gray-600 font-medium hover:bg-red-50 hover:text-corporate-red transition-colors">
           <FaCog />
           Notification settings
         </button>

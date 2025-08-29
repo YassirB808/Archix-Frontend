@@ -1,6 +1,9 @@
-import { FaUpload, FaCheckCircle, FaComment, FaUserPlus, FaBell } from "react-icons/fa";
+import { FaUpload, FaCheckCircle, FaComment, FaUserPlus, FaBell, FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export const NotificationsPanel = () => {
+  const navigate = useNavigate();
+  
   const notifications = [
     { 
       text: "Team Alpha uploaded a new document", 
@@ -34,7 +37,7 @@ export const NotificationsPanel = () => {
 
   const getNotificationStyle = (type: string, read: boolean) => {
     const baseStyles = "p-3 rounded-lg border-l-4 transition-all duration-200";
-    const readStyle = read ? "bg-white" : "bg-blue-50";
+    const readStyle = read ? "bg-white" : "bg-red-50";
     
     const typeBorders = {
       upload: "border-l-blue-400",
@@ -47,6 +50,10 @@ export const NotificationsPanel = () => {
     return `${baseStyles} ${readStyle} ${typeBorders[type as keyof typeof typeBorders] || typeBorders.default}`;
   };
 
+  const handleViewAll = () => {
+    navigate('./notifications');
+  };
+
   return (
     <div className="bg-white rounded-xl p-5">
       <div className="flex items-center justify-between mb-5">
@@ -54,7 +61,7 @@ export const NotificationsPanel = () => {
           <FaBell className="text-gray-600" />
           <h3 className="font-semibold text-gray-800 text-lg">Notifications</h3>
         </div>
-        <span className="bg-red-500 text-white text-xs font-medium px-2 py-1 rounded-full">
+        <span className="bg-corporate-red text-white text-xs font-medium px-2 py-1 rounded-full">
           3 new
         </span>
       </div>
@@ -76,7 +83,7 @@ export const NotificationsPanel = () => {
                 <p className="text-xs text-gray-400 mt-1">{notification.time}</p>
               </div>
               {!notification.read && (
-                <div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 mt-2"></div>
+                <div className="w-2 h-2 bg-corporate-red rounded-full flex-shrink-0 mt-2"></div>
               )}
             </div>
           </div>
@@ -84,8 +91,12 @@ export const NotificationsPanel = () => {
       </div>
 
       <div className="mt-5 pt-4 border-t border-gray-100">
-        <button className="w-full text-center text-sm text-blue-600 hover:text-blue-800 font-medium py-2 hover:bg-blue-50 rounded-lg transition-colors">
-          Mark all as read
+        <button 
+          onClick={handleViewAll}
+          className="w-full flex items-center justify-center gap-2 text-sm text-corporate-red hover:text-red-700 font-medium py-2 hover:bg-red-50 rounded-lg transition-colors"
+        >
+          View all notifications
+          <FaArrowRight className="text-xs" />
         </button>
       </div>
     </div>

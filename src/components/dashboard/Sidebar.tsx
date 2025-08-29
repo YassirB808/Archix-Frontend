@@ -6,7 +6,8 @@ import {
   FaHome, 
   FaBars, 
   FaChevronLeft,
-  FaSignOutAlt 
+  FaSignOutAlt,
+  FaUserShield 
 } from "react-icons/fa";
 import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
@@ -19,13 +20,14 @@ interface SidebarProps {
 
 export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarProps) => {
   const location = useLocation();
-  const [activeItem, setActiveItem] = useState("");
+  const [, setActiveItem] = useState("");
 
   const navItems = [
     { name: "Dashboard", icon: <FaHome />, href: "/dashboard" },
     { name: "Documents", icon: <FaFileAlt />, href: "/dashboard/documents" },
     { name: "Teams", icon: <FaUsers />, href: "/dashboard/teams" },
     { name: "Notifications", icon: <FaBell />, href: "/dashboard/notifications", badge: 2 },
+    { name: "Admin", icon: <FaUserShield />, href: "/dashboard/admin" },
     { name: "Settings", icon: <FaCog />, href: "/dashboard/settings" },
   ];
 
@@ -80,15 +82,15 @@ export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarP
               className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200
                 ${isCollapsed ? "justify-center" : "justify-start"}
                 ${isActive
-                  ? "bg-red-50 text-red-600 shadow-inner"
-                  : "text-gray-700 hover:bg-red-50 hover:text-red-600 hover:shadow-sm"}`}
+                  ? "bg-red-50 text-corporate-red shadow-inner"
+                  : "text-gray-700 hover:bg-red-50 hover:text-corporate-red hover:shadow-sm"}`}
               title={isCollapsed ? item.name : ""}
               aria-current={isActive ? "page" : undefined}
             >
               <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center text-lg relative">
                 {item.icon}
                 {item.badge && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center shadow">
+                  <span className="absolute -top-1 -right-1 bg-corporate-red text-white text-xs rounded-full h-4 w-4 flex items-center justify-center shadow">
                     {item.badge}
                   </span>
                 )}
@@ -102,18 +104,16 @@ export const Sidebar = ({ isCollapsed, toggleSidebar, className = "" }: SidebarP
       </nav>
 
       {/* Logout */}
-<div className="mt-auto pt-4 border-t border-gray-200">
-  <Link
-    to="/logout"
-    className={`flex items-center justify-center ${!isCollapsed ? "justify-start px-4" : "px-0"} py-4 rounded-xl text-gray-700 hover:bg-red-50 hover:text-red-600 hover:shadow-sm transition-all font-medium`}
-    title={isCollapsed ? "Logout" : ""}
-  >
-    <FaSignOutAlt className={`${isCollapsed ? "text-1xl" : "text-base"}`} />
-    {!isCollapsed && <span className="text-sm ml-3">Logout</span>}
-  </Link>
-</div>
-
-
+      <div className="mt-auto pt-4 border-t border-gray-200">
+        <Link
+          to="/logout"
+          className={`flex items-center ${isCollapsed ? "justify-center px-0" : "justify-start px-4"} py-4 rounded-xl text-gray-700 hover:bg-red-50 hover:text-corporate-red hover:shadow-sm transition-all font-medium`}
+          title={isCollapsed ? "Logout" : ""}
+        >
+          <FaSignOutAlt className={`${isCollapsed ? "text-1xl" : "text-base"}`} />
+          {!isCollapsed && <span className="text-sm ml-3">Logout</span>}
+        </Link>
+      </div>
     </aside>
   );
 };

@@ -1,4 +1,3 @@
-// src/components/dashboard/SettingsDash.tsx
 import { useState } from "react";
 import { 
   FaCog, 
@@ -12,7 +11,10 @@ import {
   FaSave,
   FaEye,
   FaEyeSlash,
-  FaCheckCircle
+  FaCheckCircle,
+  FaCreditCard,
+  FaCrown,
+  FaSync
 } from "react-icons/fa";
 
 export const SettingDash = () => {
@@ -48,6 +50,14 @@ export const SettingDash = () => {
       language: "english",
       dateFormat: "MM/DD/YYYY",
       timeFormat: "12h",
+    },
+    subscription: {
+      plan: "Premium",
+      status: "active",
+      renewalDate: "2024-12-15",
+      storage: "50 GB",
+      members: "10 members",
+      price: "$19.99/month"
     }
   });
 
@@ -76,6 +86,7 @@ export const SettingDash = () => {
     { id: "privacy", label: "Privacy & Security", icon: <FaShieldAlt /> },
     { id: "appearance", label: "Appearance", icon: <FaPalette /> },
     { id: "language", label: "Language", icon: <FaLanguage /> },
+    { id: "subscription", label: "Subscription", icon: <FaCrown /> },
   ];
 
   const ToggleSwitch = ({ 
@@ -87,7 +98,7 @@ export const SettingDash = () => {
   }) => (
     <button
       type="button"
-      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${enabled ? 'bg-blue-600' : 'bg-gray-300'}`}
+      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${enabled ? 'bg-corporate-red' : 'bg-gray-300'}`}
       onClick={() => setEnabled(!enabled)}
     >
       <span
@@ -101,8 +112,8 @@ export const SettingDash = () => {
       {/* Header */}
       <div className="flex items-center justify-between pb-6 border-b border-gray-100">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-100 rounded-lg">
-            <FaCog className="text-blue-600 text-xl" />
+          <div className="p-2 bg-red-100 rounded-lg">
+            <FaCog className="text-corporate-red text-xl" />
           </div>
           <div>
             <h2 className="text-2xl font-bold text-gray-900">Settings</h2>
@@ -111,7 +122,7 @@ export const SettingDash = () => {
         </div>
         <button 
           onClick={handleSave}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-corporate-red text-white font-medium rounded-xl hover:bg-red-700 transition-colors"
         >
           {saved ? <FaCheckCircle /> : <FaSave />}
           {saved ? "Saved!" : "Save Changes"}
@@ -126,7 +137,7 @@ export const SettingDash = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-left whitespace-nowrap transition-colors ${activeTab === tab.id ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'}`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-left whitespace-nowrap transition-colors ${activeTab === tab.id ? 'bg-red-100 text-corporate-red' : 'text-gray-600 hover:bg-gray-100'}`}
               >
                 {tab.icon}
                 <span className="font-medium">{tab.label}</span>
@@ -149,7 +160,7 @@ export const SettingDash = () => {
                     type="text"
                     value={settings.profile.firstName}
                     onChange={(e) => handleInputChange("profile", "firstName", e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors"
                   />
                 </div>
                 
@@ -159,7 +170,7 @@ export const SettingDash = () => {
                     type="text"
                     value={settings.profile.lastName}
                     onChange={(e) => handleInputChange("profile", "lastName", e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -170,7 +181,7 @@ export const SettingDash = () => {
                   type="text"
                   value={settings.profile.username}
                   onChange={(e) => handleInputChange("profile", "username", e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors"
                 />
               </div>
               
@@ -180,7 +191,7 @@ export const SettingDash = () => {
                   type="email"
                   value={settings.profile.email}
                   onChange={(e) => handleInputChange("profile", "email", e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors"
                 />
               </div>
               
@@ -190,7 +201,7 @@ export const SettingDash = () => {
                   rows={4}
                   value={settings.profile.bio}
                   onChange={(e) => handleInputChange("profile", "bio", e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors"
                 />
               </div>
               
@@ -202,7 +213,7 @@ export const SettingDash = () => {
                     <div className="relative">
                       <input
                         type={showPassword ? "text" : "password"}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors pr-12"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors pr-12"
                       />
                       <button 
                         onClick={() => setShowPassword(!showPassword)}
@@ -217,7 +228,7 @@ export const SettingDash = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
                     <input
                       type="password"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors"
                     />
                   </div>
                   
@@ -225,7 +236,7 @@ export const SettingDash = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">Confirm New Password</label>
                     <input
                       type="password"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -277,7 +288,7 @@ export const SettingDash = () => {
                       <button
                         key={option}
                         onClick={() => handleInputChange("privacy", "profileVisibility", option)}
-                        className={`px-4 py-2 rounded-lg capitalize ${settings.privacy.profileVisibility === option ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}
+                        className={`px-4 py-2 rounded-lg capitalize ${settings.privacy.profileVisibility === option ? 'bg-red-100 text-corporate-red' : 'bg-gray-100 text-gray-600'}`}
                       >
                         {option}
                       </button>
@@ -320,14 +331,14 @@ export const SettingDash = () => {
                   <div className="flex gap-4 mt-3">
                     <button
                       onClick={() => handleInputChange("appearance", "theme", "light")}
-                      className={`flex items-center gap-2 px-4 py-3 rounded-lg border ${settings.appearance.theme === "light" ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-600'}`}
+                      className={`flex items-center gap-2 px-4 py-3 rounded-lg border ${settings.appearance.theme === "light" ? 'border-corporate-red bg-red-50 text-corporate-red' : 'border-gray-200 text-gray-600'}`}
                     >
                       <FaSun />
                       Light
                     </button>
                     <button
                       onClick={() => handleInputChange("appearance", "theme", "dark")}
-                      className={`flex items-center gap-2 px-4 py-3 rounded-lg border ${settings.appearance.theme === "dark" ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-600'}`}
+                      className={`flex items-center gap-2 px-4 py-3 rounded-lg border ${settings.appearance.theme === "dark" ? 'border-corporate-red bg-red-50 text-corporate-red' : 'border-gray-200 text-gray-600'}`}
                     >
                       <FaMoon />
                       Dark
@@ -342,7 +353,7 @@ export const SettingDash = () => {
                       <button
                         key={size}
                         onClick={() => handleInputChange("appearance", "fontSize", size)}
-                        className={`px-4 py-2 rounded-lg capitalize ${settings.appearance.fontSize === size ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}
+                        className={`px-4 py-2 rounded-lg capitalize ${settings.appearance.fontSize === size ? 'bg-red-100 text-corporate-red' : 'bg-gray-100 text-gray-600'}`}
                       >
                         {size}
                       </button>
@@ -357,7 +368,7 @@ export const SettingDash = () => {
                       <button
                         key={density}
                         onClick={() => handleInputChange("appearance", "density", density)}
-                        className={`px-4 py-2 rounded-lg capitalize ${settings.appearance.density === density ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}
+                        className={`px-4 py-2 rounded-lg capitalize ${settings.appearance.density === density ? 'bg-red-100 text-corporate-red' : 'bg-gray-100 text-gray-600'}`}
                       >
                         {density}
                       </button>
@@ -390,7 +401,7 @@ export const SettingDash = () => {
                   <select
                     value={settings.language.language}
                     onChange={(e) => handleInputChange("language", "language", e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors"
                   >
                     <option value="english">English</option>
                     <option value="spanish">Spanish</option>
@@ -405,7 +416,7 @@ export const SettingDash = () => {
                   <select
                     value={settings.language.dateFormat}
                     onChange={(e) => handleInputChange("language", "dateFormat", e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-corporate-red focus:border-corporate-red outline-none transition-colors"
                   >
                     <option value="MM/DD/YYYY">MM/DD/YYYY</option>
                     <option value="DD/MM/YYYY">DD/MM/YYYY</option>
@@ -418,16 +429,125 @@ export const SettingDash = () => {
                   <div className="flex gap-4 mt-3">
                     <button
                       onClick={() => handleInputChange("language", "timeFormat", "12h")}
-                      className={`px-4 py-2 rounded-lg ${settings.language.timeFormat === "12h" ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}
+                      className={`px-4 py-2 rounded-lg ${settings.language.timeFormat === "12h" ? 'bg-red-100 text-corporate-red' : 'bg-gray-100 text-gray-600'}`}
                     >
                       12-hour
                     </button>
                     <button
                       onClick={() => handleInputChange("language", "timeFormat", "24h")}
-                      className={`px-4 py-2 rounded-lg ${settings.language.timeFormat === "24h" ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}
+                      className={`px-4 py-2 rounded-lg ${settings.language.timeFormat === "24h" ? 'bg-red-100 text-corporate-red' : 'bg-gray-100 text-gray-600'}`}
                     >
                       24-hour
                     </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Subscription Settings */}
+          {activeTab === "subscription" && (
+            <div className="space-y-6">
+              <h3 className="text-xl font-semibold text-gray-900">Subscription Management</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Current Plan Card */}
+                <div className="bg-gradient-to-r from-red-600 to-red-700 text-white rounded-2xl p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <FaCrown className="text-yellow-300 text-xl" />
+                      <h4 className="font-bold text-lg">{settings.subscription.plan}</h4>
+                    </div>
+                    <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium">
+                      {settings.subscription.status}
+                    </span>
+                  </div>
+                  
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>Storage</span>
+                      <span className="font-semibold">{settings.subscription.storage}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Team Members</span>
+                      <span className="font-semibold">{settings.subscription.members}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Price</span>
+                      <span className="font-semibold">{settings.subscription.price}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Renewal Date</span>
+                      <span className="font-semibold">
+                        {new Date(settings.subscription.renewalDate).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment Methods */}
+                <div className="bg-white rounded-2xl border border-gray-200 p-6">
+                  <h4 className="font-semibold text-gray-900 mb-4">Payment Methods</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <FaCreditCard className="text-gray-600" />
+                        <div>
+                          <p className="font-medium text-sm">Visa ending in 4242</p>
+                          <p className="text-xs text-gray-500">Expires 12/2024</p>
+                        </div>
+                      </div>
+                      <button className="text-corporate-red hover:text-red-700 text-sm font-medium">
+                        Edit
+                      </button>
+                    </div>
+                    
+                    <button className="w-full flex items-center justify-center gap-2 py-3 border border-dashed border-gray-300 rounded-lg text-gray-500 hover:text-corporate-red hover:border-corporate-red transition-colors">
+                      <FaCreditCard />
+                      Add Payment Method
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Subscription Actions */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                <button className="flex items-center justify-center gap-2 px-4 py-3 bg-corporate-red text-white rounded-xl hover:bg-red-700 transition-colors font-medium">
+                  <FaSync />
+                  Change Plan
+                </button>
+                <button className="flex items-center justify-center gap-2 px-4 py-3 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors font-medium">
+                  <FaCreditCard />
+                  Update Payment
+                </button>
+                <button className="flex items-center justify-center gap-2 px-4 py-3 border border-red-300 text-corporate-red rounded-xl hover:bg-red-50 transition-colors font-medium">
+                  Cancel Subscription
+                </button>
+              </div>
+
+              {/* Billing History */}
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <h4 className="font-semibold text-gray-900 mb-4">Billing History</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                    <div>
+                      <p className="font-medium text-sm">Premium Plan - December 2023</p>
+                      <p className="text-xs text-gray-500">December 15, 2023</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-semibold text-sm">$19.99</p>
+                      <p className="text-xs text-green-600">Paid</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                    <div>
+                      <p className="font-medium text-sm">Premium Plan - November 2023</p>
+                      <p className="text-xs text-gray-500">November 15, 2023</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-semibold text-sm">$19.99</p>
+                      <p className="text-xs text-green-600">Paid</p>
+                    </div>
                   </div>
                 </div>
               </div>

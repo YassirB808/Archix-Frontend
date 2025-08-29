@@ -14,6 +14,7 @@ import { AboutUs } from 'pages/About';
 import { PrivacyPolicy } from 'pages/Privacy';
 import { TermsOfService } from 'pages/TermsOfService';
 import { CookiePolicy } from 'pages/CookiePolicy';
+import { AdminView } from 'pages/AdminView';
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,11 @@ const router = createBrowserRouter([
   { 
     path: '/cookie',
     element: <CookiePolicy />,
+  }
+  ,
+  { 
+    path: '/dashboard/admin',
+    element: <AdminView />,
   }
 ]);
 
